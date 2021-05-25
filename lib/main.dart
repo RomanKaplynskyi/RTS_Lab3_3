@@ -15,7 +15,8 @@ List<double> fitnessFunction(List<int> deltas) {
   return fitnesses;
 }
 
-List<List<int>> diophant({ax = 2, bx = 2, cx = 3, dx = 4, y = 45}) {
+List<List<int>> diophant(
+    {ax = 2, bx = 2, cx = 3, dx = 4, y = 45, mutantCoef = 2}) {
   int maxRange = (y / 2).round();
   List<List<int>> initVals = [];
   for (int i = 0; i < 5; i++) {
@@ -68,7 +69,7 @@ List<List<int>> diophant({ax = 2, bx = 2, cx = 3, dx = 4, y = 45}) {
 
       var devider = Random().nextInt(3);
       List<int> child = [];
-      var mutant = Random().nextInt(2);
+      var mutant = Random().nextInt(mutantCoef);
       switch (devider) {
         case 0:
           if (mutant == 0) {
@@ -210,16 +211,33 @@ class _MyHomePageState extends State<MyHomePage> {
           var x4 = _dController.text == "" ? 1 : int.parse(_dController.text);
           var y =
               _resController.text == "" ? 1 : int.parse(_resController.text);
-          var dd = diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y);
-          print(dd);
-
+          var dd1 =
+              diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y, mutantCoef: 1);
+          var dd2 =
+              diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y, mutantCoef: 2);
+          var dd3 =
+              diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y, mutantCoef: 3);
+          var dd4 =
+              diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y, mutantCoef: 4);
+          var dd5 =
+              diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y, mutantCoef: 5);
+          var dd6 =
+              diophant(ax: x1, bx: x2, cx: x3, dx: x4, y: y, mutantCoef: 10);
+          print('100%\n');
+          print("IterationsCount = ${dd1[1][0]}\n");
+          print('50%\n');
+          print("IterationsCount = ${dd2[1][0]}\n");
+          print('30%\n');
+          print("IterationsCount = ${dd3[1][0]}\n");
+          print('25%\n');
+          print("IterationsCount = ${dd4[1][0]}\n");
+          print('20%\n');
+          print("IterationsCount = ${dd5[1][0]}\n");
+          print('10%\n');
+          print("IterationsCount = ${dd6[1][0]}\n");
           var dialog = AlertDialog(
             title: Text("Result"),
-            content: new Text("A = ${dd[0][0]}\n" +
-                "B = ${dd[0][1]}\n" +
-                "C = ${dd[0][2]}\n" +
-                "D = ${dd[0][3]}\n" +
-                "IterationsCount = ${dd[1][0]}\n"),
+            content: new Text("Look in terminal for result!"),
             actions: <Widget>[
               new TextButton(
                 child: new Text('OK'),
